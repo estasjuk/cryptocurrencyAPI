@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 require("dotenv").config();
 
 const cryptoRouter = require('./routes/cryptoRoutes');
@@ -7,6 +8,12 @@ const { job } = require('./utils/cronJob');
 const app = express();
 
 app.use(express.json());
+app.use(
+    cors({
+      credentials: true,
+      origin: ["http://localhost:5001"],
+    })
+  );
 
 app.use('/', cryptoRouter);
 

@@ -12,7 +12,7 @@ const getCrypto = async (req, res) => {
     const {symbol, market, time} = req.query;
     let result = [];
 
-    if (!market) {                              // get average price
+    if (!market && symbol && time) {                              // get average price
         const searchTime = getTimeRange(time);
         const rawResult = await Crypto.find({symbol, createdAt: {
             $gte: searchTime} 
@@ -44,6 +44,7 @@ const getCrypto = async (req, res) => {
 
     else if (!market && !time && !symbol) {    // endpoint for telegram bot
         const searchTime = getTimeRange("5m");
+        console.log(searchTime);
         const rawResult = await Crypto.find({createdAt: {$gte: searchTime}, symbol: {$in: hypeCrypto}});
         if (rawResult.length === 0) {
             throw HttpError.NotFoundError("Data not found");
