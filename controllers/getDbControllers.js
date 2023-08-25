@@ -44,7 +44,6 @@ const getCrypto = async (req, res) => {
 
     else if (!market && !time && !symbol) {    // endpoint for telegram bot
         const searchTime = getTimeRange("5m");
-        console.log(searchTime);
         const rawResult = await Crypto.find({createdAt: {$gte: searchTime}, symbol: {$in: hypeCrypto}});
         if (rawResult.length === 0) {
             throw HttpError.NotFoundError("Data not found");
@@ -81,17 +80,15 @@ const getCrypto = async (req, res) => {
     });
 };
 
-
-
 const deleteCrypto = async (req, res) =>  {
     await Crypto.deleteMany({});
 
     res.status(200).json({
         message: "Ok",
     });
-}
+};
 
 module.exports = {
     getCrypto: controllerWrapper(getCrypto),
     deleteCrypto: controllerWrapper(deleteCrypto),
-}
+};
