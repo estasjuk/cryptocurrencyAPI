@@ -14,7 +14,7 @@ const getTimeRange = (time) => {
         timeToSearch = dateNow.getTime() - timeRange;
     };
 
-    if (time === "0_5") {
+    if (time === "0_5h") {
         timeRange = 30 * 60 * 1000;
         timeToSearch = dateNow.getTime() - timeRange;
     };
